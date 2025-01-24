@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Secure Video Meeting</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>Welcome to Secure Video Meetings</h1>
+    </header>
+
+    <!-- Google Sign-In Button -->
+    <div id="auth-section">
+      <div id="g_id_onload"
+           data-client_id="351214378607-o1u27bntsj97unmsf6kij1ulntpbc1ih.apps.googleusercontent.com"
+           data-callback="handleGoogleSignIn"
+           data-auto_prompt="false">
+      </div>
+      <div class="g_id_signin" 
+           data-type="standard" 
+           data-shape="rectangular" 
+           data-theme="outline" 
+           data-text="continue_with" 
+           data-size="large" 
+           data-logo_alignment="left">
+      </div>
+    </div>
+
+    <!-- Meeting Controls Section -->
+    <div id="meeting-controls" style="display: none;">
+      <div class="meeting-controls">
+        <input type="text" id="meeting-room" placeholder="Enter Meeting Room Name (Optional)">
+        <button id="start-meeting">Start Meeting</button>
+      </div>
+      <div id="share-link-container"></div>
+    </div>
+
+    <!-- Video Conference Section -->
+    <div id="jitsi-container"></div>
+  </div>
+
+  <script src="https://meet.jit.si/external_api.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
