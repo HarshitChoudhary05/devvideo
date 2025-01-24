@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://8x8.vc/vpaas-magic-cookie-cc7910e2bd5449ae8ccb92c35912be82/external_api.js" async></script>
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      #auth-section, #jaas-container {
+        width: 80%;
+        max-width: 600px;
+        text-align: center;
+      }
+      #auth-section input {
+        width: 90%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      #auth-section button {
+        background-color: #007BFF;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      #auth-section button:hover {
+        background-color: #0056b3;
+      }
+      #jaas-container {
+        display: none;
+        height: 500px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- User Authentication Section -->
+    <div id="auth-section">
+      <h2>Join the Meeting</h2>
+      <input type="text" id="user-name" placeholder="Enter your name" required />
+      <input type="email" id="user-email" placeholder="Enter your email" required />
+      <button id="join-meeting-btn">Join Meeting</button>
+    </div>
+
+    <!-- Jitsi Meeting Container -->
+    <div id="jaas-container"></div>
+
+    <script type="text/javascript">
+      // Function to initialize the Jitsi meeting
+      function startJitsiMeeting(userName, userEmail) {
+        const domain = "8x8.vc";
+        const options = {
+          roomName: "vpaas-magic-cookie-cc7910e2bd5449ae8ccb92c35912be82/Test Video Chat",
+          parentNode: document.querySelector('#jaas-container'),
+          userInfo: {
+            displayName: userName,
+            email: userEmail,
+          },
+        };
+
+        // Show the meeting container
+        document.getElementById("jaas-container").style.display = "block";
+
+        // Initialize Jitsi External API
+        const api = new JitsiMeetExternalAPI(domain, options);
+
+        // Optional: Handle events, e.g., participant joined/left
+        api.addEventListener('participantJoined', (participant) => {
+          console.log('Participant joined:', participant);
+        });
+      }
+
+      // Add event listener to the Join button
+      document.getElementById("join-meeting-btn").addEventListener("click", () => {
+        const userName = document.getElementById("user-name").value.trim();
+        const userEmail = document.getElementById("user-email").value.trim();
+
+        if (!userName || !userEmail) {
+          alert("Please enter both your name and email to join the meeting.");
+          return;
+        }
+
+        // Hide the authentication section
+        document.getElementById("auth-section").style.display = "none";
+
+        // Start the Jitsi meeting
+        startJitsiMeeting(userName, userEmail);
+      });
+    </script>
+  </body>
+</html>
